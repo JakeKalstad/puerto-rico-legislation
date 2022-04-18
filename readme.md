@@ -42,7 +42,7 @@ filter by measure id/heading substring/authors
 
 ## generate html for each measure
 
-convert json files into static html files for es/en
+convert json files into static html and md files for es/en
 
 ## gotchas
 
@@ -53,3 +53,13 @@ downloaded from `https://download.pytorch.org/libtorch/cu113/libtorch-shared-wit
 cloned rust-bert and built it via `cargo build` and pointed my translate cargo.toml to the extracted directory
 
 It's currently running on CPU for the translation, my GPU is small otherwise it would be better to run it off GPU.
+
+@inproceedings{becquin-2020-end,
+    title = "End-to-end {NLP} Pipelines in Rust",
+    author = "Becquin, Guillaume",
+    booktitle = "Proceedings of Second Workshop for NLP Open Source Software (NLP-OSS)",
+    year = "2020",
+    publisher = "Association for Computational Linguistics",
+    url = "<https://www.aclweb.org/anthology/2020.nlposs-1.4">,
+    pages = "20--25",
+}

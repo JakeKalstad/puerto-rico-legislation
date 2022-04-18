@@ -16,13 +16,13 @@ fn get_urls() -> Vec<String> {
     return string_list;
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct History {
     description: String,
     date: chrono::naive::NaiveDate,
     document: String,
 }
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct Measure {
     name: String,
     date: chrono::naive::NaiveDate,
@@ -159,7 +159,7 @@ async fn scrape() {
                             document: doc_str,
                         })
                     }
-                    measures.push(Measure {
+                    let m = Measure {
                         name: measure_name.trim_start().trim_end().to_string(),
                         date: NaiveDate::parse_from_str(
                             measure_date.trim_start().trim_end(),
@@ -167,9 +167,16 @@ async fn scrape() {
                         )
                         .unwrap(),
                         heading: header,
-                        authors,
-                        history,
-                    })
+                        authors: authors.clone(),
+                        history: history.clone(),
+                    };
+                    measures.push(m.clone());
+
+                    let measure_json = serde_json::to_string(&m.clone()).unwrap();
+                    let mut file =
+                        std::fs::File::create(format!("../output/measures/{}.es.json", m.name))
+                            .unwrap();
+                    writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
                 }
                 Err(e) => eprintln!("Got an error: {}", e),
             }
@@ -177,6 +184,6 @@ async fn scrape() {
         })
         .await;
     let measure_json = serde_json::to_string(&measures).unwrap();
-    let mut file = std::fs::File::create("measures.es.json").unwrap();
+    let mut file = std::fs::File::create("../output/measures.es.json").unwrap();
     writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
 }

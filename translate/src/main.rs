@@ -9,13 +9,13 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::Write;
 use tch::Device;
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct History {
     description: String,
     date: chrono::naive::NaiveDate,
     document: String,
 }
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct Measure {
     name: String,
     date: chrono::naive::NaiveDate,
@@ -49,7 +49,7 @@ fn main() {
     } else {
         return;
     }
-    let contents = fs::read_to_string("../pr-legislation/measures.json")
+    let contents = fs::read_to_string("../output/measures.es.json")
         .expect("Something went wrong reading the file");
     let measures: Vec<Measure> = match serde_json::from_str(&contents) {
         Ok(it) => it,
@@ -72,16 +72,21 @@ fn main() {
             }
         }
         let en_header = output.iter().next().expect("error");
-
-        en_measures.push(Measure {
+        let m = Measure {
             name: m.name,
             date: m.date,
-            heading: en_header.to_string(),
+            heading: en_header.trim_start().trim_end().to_string(),
             authors: m.authors,
             history: m.history,
-        })
+        };
+        en_measures.push(m.clone());
+
+        let measure_json = serde_json::to_string(&m.clone()).unwrap();
+        let mut file =
+            std::fs::File::create(format!("../output/measures/{}.en.json", m.name)).unwrap();
+        writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
     }
     let measure_json = serde_json::to_string(&en_measures).unwrap();
-    let mut file = std::fs::File::create("../pr-legislation/measures.en.json").unwrap();
+    let mut file = std::fs::File::create("../output/measures.en.json").unwrap();
     writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
 }

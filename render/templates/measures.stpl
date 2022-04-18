@@ -1,0 +1,6 @@
+<html>
+  <body>
+      <div><%= measure.name %></div>
+      <div><%= measure.heading %></div>
+  </body>
+</html>
