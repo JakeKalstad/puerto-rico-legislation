@@ -49,7 +49,7 @@ convert json files into static html files for es/en
 Translation is currently using a local build of rust-bert
 
 To get it to work I updated openssl to 3.0 via the experimental ubuntu repo
-downloaded from pytorch.com `libtorch-cxx11-abi-shared-with-deps-1.11.0+cu113.zip` and extracted it locally, pointed LIBTORCH at it (following instructions via rust-bert)
+downloaded from `https://download.pytorch.org/libtorch/cu113/libtorch-shared-with-deps-1.11.0%2Bcu113.zip` `libtorch-cxx11-abi-shared-with-deps-1.11.0+cu113.zip` and extracted it locally, pointed LIBTORCH at it (following instructions via rust-bert)
 cloned rust-bert and built it via `cargo build` and pointed my translate cargo.toml to the extracted directory
 
 It's currently running on CPU for the translation, my GPU is small otherwise it would be better to run it off GPU.
