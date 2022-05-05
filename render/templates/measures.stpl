@@ -1,6 +1,46 @@
-<html>
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <title>Measure <%= measure.name %></title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Measure <%= measure.name %> created <%= measure.date.to_string() %> <%= measure.heading %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
   <body>
-      <div><%= measure.name %></div>
-      <div><%= measure.heading %></div>
+      <a href="/">Home</a>
+      <h1>Measure <%= measure.name %></h1>
+      <h2><%= measure.heading %></h2>
+      <h3><%= measure.date.to_string() %></h3>
+      <span><b>Authors</b></span>
+      <hr/>
+      <ul>
+      <% for author in &measure.authors { %>
+        <li><%= author %></li>
+      <% } %>
+      </ul>
+
+      <span><b>History</b></span>
+      <hr/>
+      <% for history in &measure.history { %>
+        <div class="grid-container">
+          <div class="grid-item"><%= history.description %></div>
+          <div class="grid-item"><%= history.date.to_string() %></div>
+          <% if history.document.len() > 0 { %>
+            <div class="grid-item"><a href="<%=history.document%>">document</a></div>
+          <% } %>
+        </div>
+        <hr/>
+      <% } %>
+      <style>
+        .grid-container {
+             display: grid;
+    /* gap: 50px; */
+    grid-auto-columns: max-content;
+    grid-column-gap: 32px;
+    grid-row-gap: 15px;
+}.grid-item {
+    grid-row: none;
+}
+      </style>
   </body>
 </html>

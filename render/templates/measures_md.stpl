@@ -1,3 +1,15 @@
 # <%= measure.name %>
-
+### <%= measure.date.to_string() %>
 <%= measure.heading %>
+
+## Authors
+<% for author in &measure.authors { %>
+    > <%= author %>
+<% } %>
+
+## History
+<% for history in &measure.history { %>
+    > <%= history.description %>
+    > <%= history.date.to_string() %>
+    > [<%= history.document %>](document)
+<% } %>

@@ -1,5 +1,5 @@
 [package]
-name = "pr-legislation"
+name = "scrape"
 version = "0.1.0"
 edition = "2021"
 

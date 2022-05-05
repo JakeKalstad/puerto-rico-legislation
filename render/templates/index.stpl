@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <title>Measures of Puerto Rico</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Listing and details of the Legal Measures being brought forth by the Puerto Rico house of representatives.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+  <body>
+      <h1>Measures</h1>
+      <% for measure in measures { %>
+        <div class="grid-container">
+          <div class="grid-item"><a href="/measures/<%=measure.name%>.<%= lang %>.html"><%= measure.name %></a></div>
+          <div class="grid-item"><%= measure.heading %></div>
+        </div>
+        <hr/>
+      <% } %>
+  </body>
+</html>

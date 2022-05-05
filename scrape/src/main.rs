@@ -9,10 +9,11 @@ use std::io::Write;
 
 const START_MEASURE: i32 = 53598;
 const END_MEASURE: i32 = 71766;
-const CONCURRENT_REQUESTS: usize = 5;
+const CONCURRENT_REQUESTS: usize = 100;
 
 fn get_urls() -> Vec<String> {
-    let string_list: Vec<String> = (START_MEASURE..START_MEASURE+1).map(|i| format!("http://www.tucamarapr.org/dnncamara/web/ActividadLegislativa/TramiteLegislativo.aspx?measureid={}", i)).collect();
+    // static now... need to be way smarter here to keep it rolling and not get URLs we already have...
+    let string_list: Vec<String> = (START_MEASURE..END_MEASURE).map(|i| format!("http://www.tucamarapr.org/dnncamara/web/ActividadLegislativa/TramiteLegislativo.aspx?measureid={}", i)).collect();
     return string_list;
 }
 
@@ -39,7 +40,6 @@ async fn main() {
 async fn scrape() {
     let client = Client::new();
     let urls = get_urls();
-    println!("{:?}", urls);
     let bodies = stream::iter(urls)
         .map(|url| {
             let client = &client;
@@ -87,7 +87,9 @@ async fn scrape() {
                             }
                             if author_idx_start > 0 && author_idx_end == 0 {
                                 let author_text = story_part.replace("\n", "");
-                                if author_text.trim_start().trim_end().len() == 0 {
+                                if author_text.trim_start().trim_end().len() == 0
+                                    && (i - 1) > author_idx_start
+                                {
                                     author_idx_end = i - 1;
                                 }
                             }
@@ -159,24 +161,31 @@ async fn scrape() {
                             document: doc_str,
                         })
                     }
-                    let m = Measure {
-                        name: measure_name.trim_start().trim_end().to_string(),
-                        date: NaiveDate::parse_from_str(
+                    if measure_date.trim_start().trim_end().len() > 0 {
+                        let nd = NaiveDate::parse_from_str(
                             measure_date.trim_start().trim_end(),
                             "%m/%d/%Y",
-                        )
-                        .unwrap(),
-                        heading: header,
-                        authors: authors.clone(),
-                        history: history.clone(),
-                    };
-                    measures.push(m.clone());
+                        );
+                        let md: NaiveDate;
+                        match nd {
+                            Ok(d) => md = d,
+                            Err(_e) => panic!("{}", measure_name),
+                        }
+                        let m = Measure {
+                            name: measure_name.trim_start().trim_end().to_string(),
+                            date: md,
+                            heading: header,
+                            authors: authors.clone(),
+                            history: history.clone(),
+                        };
+                        measures.push(m.clone());
 
-                    let measure_json = serde_json::to_string(&m.clone()).unwrap();
-                    let mut file =
-                        std::fs::File::create(format!("../output/measures/{}.es.json", m.name))
-                            .unwrap();
-                    writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
+                        let measure_json = serde_json::to_string(&m.clone()).unwrap();
+                        let mut file =
+                            std::fs::File::create(format!("../output/measures/{}.es.json", m.name))
+                                .unwrap();
+                        writeln!(&mut file, "{}", measure_json.as_str()).unwrap();
+                    }
                 }
                 Err(e) => eprintln!("Got an error: {}", e),
             }

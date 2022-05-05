@@ -1,1 +1,55 @@
-[{"name":"P C0001","date":"2013-01-02","heading":"To amend the Law 81-1991, as amended, better known as *Law of Autonomous Municipalities*, for the purpose of adding a new Chapter XXI, called Autonomous Regions*, to redesign the Chapter XXI, called Transitional Provisions as Chapter XXII, and for other purposes.","authors":["Rafael Hernández Montañez","José M. Varela Fernández","Lydia Méndez Silva","Angel N. Matos García","Roberto Rivera Ruiz De Porras","Orlando Aponte Rosario","Eladio J. Cardona Quiles","Jessie Cortés Ramos","Ramón L. Cruz Burgos","José Anibal Díaz Collazo","Edgardo Feliciano Sánchez","Héctor E. Ferrer Santiago","Ángel A. Fourquet Cordero","Sol Y. Higgins Cuadrado","Kebin A. Maldonado Martiz","Estrella Martínez Soto","Jesús Manuel Ortiz González","Luis R. Ortiz Lugo","José H. Rivera Madera","Jocelyne M. Rodríguez Negrón","Jesús Santa Rodríguez","Juan J. Santiago Nieves","Deborah Soto Arroyo","Luis R. Torres Cruz"],"history":[{"description":"Radicado","date":"2021-01-04","document":"http://www.tucamarapr.org/dnncamara/Documents/Measures/27697b33-269a-4315-9531-acc186a308c6.pdf"},{"description":"Asignado a la(s) Comisión(es)                                                   COMISIÓN DE HACIENDA Y PRESUPUESTO","date":"2021-01-25","document":""},{"description":"Aparece en Primera Lectura de la Cámara","date":"2021-01-25","document":""},{"description":"Referido a la(s) Comisión(es)","date":"2021-01-26","document":""}]}]
+[
+    {
+        "name": "P C0001",
+        "date": "2013-01-02",
+        "heading": "To amend the Law 81-1991, as amended, better known as *Law of Autonomous Municipalities*, for the purpose of adding a new Chapter XXI, called Autonomous Regions*, to redesign the Chapter XXI, called Transitional Provisions as Chapter XXII, and for other purposes.",
+        "authors": [
+            "Rafael Hernández Montañez",
+            "José M. Varela Fernández",
+            "Lydia Méndez Silva",
+            "Angel N. Matos García",
+            "Roberto Rivera Ruiz De Porras",
+            "Orlando Aponte Rosario",
+            "Eladio J. Cardona Quiles",
+            "Jessie Cortés Ramos",
+            "Ramón L. Cruz Burgos",
+            "José Anibal Díaz Collazo",
+            "Edgardo Feliciano Sánchez",
+            "Héctor E. Ferrer Santiago",
+            "Ángel A. Fourquet Cordero",
+            "Sol Y. Higgins Cuadrado",
+            "Kebin A. Maldonado Martiz",
+            "Estrella Martínez Soto",
+            "Jesús Manuel Ortiz González",
+            "Luis R. Ortiz Lugo",
+            "José H. Rivera Madera",
+            "Jocelyne M. Rodríguez Negrón",
+            "Jesús Santa Rodríguez",
+            "Juan J. Santiago Nieves",
+            "Deborah Soto Arroyo",
+            "Luis R. Torres Cruz"
+        ],
+        "history": [
+            {
+                "description": "Radicado",
+                "date": "2021-01-04",
+                "document": "http://www.tucamarapr.org/dnncamara/Documents/Measures/27697b33-269a-4315-9531-acc186a308c6.pdf"
+            },
+            {
+                "description": "Asignado a la(s) Comisión(es)                                                   COMISIÓN DE HACIENDA Y PRESUPUESTO",
+                "date": "2021-01-25",
+                "document": ""
+            },
+            {
+                "description": "Aparece en Primera Lectura de la Cámara",
+                "date": "2021-01-25",
+                "document": ""
+            },
+            {
+                "description": "Referido a la(s) Comisión(es)",
+                "date": "2021-01-26",
+                "document": ""
+            }
+        ]
+    }
+]

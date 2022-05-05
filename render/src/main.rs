@@ -9,6 +9,7 @@ struct History {
     date: chrono::naive::NaiveDate,
     document: String,
 }
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Measure {
     name: String,
@@ -21,12 +22,19 @@ struct Measure {
 #[template(path = "../templates/measures.stpl")]
 struct MeasureTemplate<'a> {
     measure: &'a Measure,
+    lang: String,
 }
 
 #[derive(TemplateOnce)]
 #[template(path = "../templates/measures_md.stpl")]
 struct MeasureMDTemplate<'a> {
     measure: &'a Measure,
+}
+#[derive(TemplateOnce)]
+#[template(path = "../templates/index.stpl")]
+struct IndexTemplate {
+    measures: Vec<Measure>,
+    lang: String,
 }
 fn main() {
     let en_contents = fs::read_to_string("../output/measures.en.json")
@@ -43,9 +51,11 @@ fn main() {
     for i in 0..en_measures.len() {
         let en_ctx = MeasureTemplate {
             measure: &en_measures[i],
+            lang: "en".to_string(),
         };
         let es_ctx = MeasureTemplate {
             measure: &es_measures[i],
+            lang: "en".to_string(),
         };
         let en_ctx_md = MeasureMDTemplate {
             measure: &en_measures[i],
@@ -67,4 +77,17 @@ fn main() {
         file = std::fs::File::create(format!("../output/measures/{}.es.md", file_name)).unwrap();
         writeln!(&mut file, "{}", es_ctx_md.render_once().unwrap()).unwrap();
     }
+    let idx_ct = IndexTemplate {
+        measures: en_measures,
+        lang: "en".to_string(),
+    };
+    let mut file = std::fs::File::create(format!("../output/index.html")).unwrap();
+    writeln!(&mut file, "{}", idx_ct.render_once().unwrap()).unwrap();
+
+    let idx_es_ct = IndexTemplate {
+        measures: es_measures,
+        lang: "es".to_string(),
+    };
+    let mut file = std::fs::File::create(format!("../output/index.es.html")).unwrap();
+    writeln!(&mut file, "{}", idx_es_ct.render_once().unwrap()).unwrap();
 }
